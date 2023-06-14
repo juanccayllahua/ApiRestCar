@@ -7,7 +7,9 @@ app.get('/', (req, res) => {
 });
 
 app.get('/car', (req, res) => {
+    console.log('invocando_---```>>')
     res.send('carros!');
+
   });
 
 app.listen(port, () => {
