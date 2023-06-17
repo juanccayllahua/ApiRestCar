@@ -11,25 +11,7 @@ const connection = mysql.createConnection({
   database: 'holamund'
 });
 
-connection.connect((error) => {
-  if (error) {
-    console.error('Error al conectar a la base de datos:', error);
-  } else {
-    console.log('Conexión exitosa a la base de datos');
 
-    //Realiza una consulta a la base de datos
-    connection.query('SELECT * FROM marcas_carros', (error, results) => {
-      if (error) {
-        console.error('Error al realizar la consulta:', error);
-      } else {
-        console.log('Resultados de la consulta:', results);
-      }
-
-      // Cierra la conexión a la base de datos
-      connection.end();
-    });
-  }
-});
 
 
 app.get('/', (req, res) => {
@@ -38,6 +20,28 @@ app.get('/', (req, res) => {
 
 app.get('/car', (req, res) => {
     console.log('invocando_---```>>')
+    
+    connection.connect((error) => {
+      if (error) {
+        console.error('Error al conectar a la base de datos:', error);
+      } else {
+        console.log('Conexión exitosa a la base de datos');
+    
+        //Realiza una consulta a la base de datos
+        connection.query('SELECT * FROM marcas_carros', (error, results) => {
+          if (error) {
+            console.error('Error al realizar la consulta:', error);
+          } else {
+            res.send(results);
+            // console.log('Resultados de la consulta:', results);
+          }
+    
+          // Cierra la conexión a la base de datos
+          connection.end();
+        });
+      }
+    });
+
     res.send('carros!');
 
   });
